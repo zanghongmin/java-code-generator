@@ -35,7 +35,7 @@ import java.util.Map;
 public class IndexController {
     private static final Logger logger = LoggerFactory.getLogger(IndexController.class);
 
-    public static String folder = System.getProperty("java.io.tmpdir") ;
+    public static String folder = System.getProperty("java.io.tmpdir")+ File.separator  ;
 
     @Resource
     private FreemarkerTool freemarkerTool;
