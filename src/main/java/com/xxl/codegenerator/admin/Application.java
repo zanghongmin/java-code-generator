@@ -11,6 +11,8 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -24,18 +26,15 @@ import java.util.zip.ZipOutputStream;
  * @author xuxueli 2018-03-22 23:41:47
  */
 @SpringBootApplication
-public class Application {
+public class Application extends SpringBootServletInitializer {
+
+    @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+        return application.sources(Application.class);
+    }
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
-//        String folder = System.getProperty("java.io.tmpdir") + "xxl-code-generator";
-//
-//
-//        try {
-//            new ZipOutputStreamDemo(new File(folder)).compressFile(new File(folder));
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
     }
 
     static class ZipOutputStreamDemo {
