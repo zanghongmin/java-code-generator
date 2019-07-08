@@ -183,6 +183,7 @@ public class IndexController {
             String filename =  artifactId + "-springboot2.zip";
             String filepath = folder+artifactId;
             File fileparent = new File(filepath);
+            logger.info("文件路径：" + filepath);
             if(fileparent.exists()){
                 FileUtil.deleteRecursively(fileparent);
             }
