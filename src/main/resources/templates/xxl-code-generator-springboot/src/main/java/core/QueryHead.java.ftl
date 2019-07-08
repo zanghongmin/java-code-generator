@@ -1,0 +1,50 @@
+package ${packgage}.core;
+
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiParam;
+
+import javax.validation.constraints.NotBlank;
+import java.io.Serializable;
+
+/**
+ * 统一请求对象
+ */
+@ApiModel(value="公共请求头")
+public class QueryHead implements Serializable {
+	public static final long serialVersionUID = 42L;
+
+	@ApiParam(name= "source", value = "来源系统", defaultValue = "FrontEnd",required = true)
+	@NotBlank(message = "source来源系统不能为空")
+	private String source;
+	@ApiParam(name= "timestamp", value = "时间戳", defaultValue = "123456789",required = true)
+    @NotBlank(message = "timestamp时间戳不能为空")
+	private String timestamp;
+	@ApiParam(name= "signature", value = "签名字符串", defaultValue = "",required = true)
+	private String signature;
+
+	public String getSource() {
+		return source;
+	}
+
+	public void setSource(String source) {
+		this.source = source;
+	}
+
+	public String getTimestamp() {
+		return timestamp;
+	}
+
+	public void setTimestamp(String timestamp) {
+		this.timestamp = timestamp;
+	}
+
+	public String getSignature() {
+		return signature;
+	}
+
+	public void setSignature(String signature) {
+		this.signature = signature;
+	}
+
+
+}
