@@ -266,7 +266,7 @@ public class IndexController {
 
             FileUtils.copyFile( logbackfile, new File(resoutcespath+ File.separator+ "logback.xml"));
 
-            File APIcontrollerfile = new File(javapath + File.separator +"controller"+File.separator + "APIcontroller.java");
+            File APIcontrollerfile = new File(javapath + File.separator +"controller"+File.separator + "APIController.java");
             FileUtil.writeFileContent(APIcontrollerfile, freemarkerTool.processString("xxl-code-generator-springboot/src/main/java/controller/APIController.java.ftl", params).getBytes());
 
             for(ClassInfo  classInfo:classInfos){
