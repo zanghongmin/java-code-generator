@@ -65,7 +65,7 @@
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
                     <li class="dropdown user user-menu">
-                        <a target="_blank" href="/zip">生成springboot2工程页面</a>
+                        <a target="_blank" href="${request.contextPath}/zip">生成springboot2工程页面</a>
                     </li>
                     </li>
                 </ul>
