@@ -23,6 +23,19 @@ import java.io.IOException;
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
 
+    @Resource
+    private SignatureInterceptor signatureInterceptor;
+
+    /**
+     * 添加自定义拦截器
+     *  1.给对外提供api接口，增加签名检验
+     * @param registry
+     */
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+           registry.addInterceptor(signatureInterceptor).addPathPatterns("/api/**");
+    }
+
     /**
      * swagger-ui 页面可以加载和显示
      * @param registry
