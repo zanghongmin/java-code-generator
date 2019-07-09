@@ -18,7 +18,7 @@ import io.swagger.annotations.ApiParam;
 /**
 *  ${classInfo.classComment}
 *
-*  Created by 开发3处 on '${.now?string('yyyy-MM-dd HH:mm:ss')}'.
+*  Created by zang on '${.now?string('yyyy-MM-dd HH:mm:ss')}'.
 */
 @ApiModel(value="${classInfo.classComment}")
 public class ${classInfo.className} implements Serializable {

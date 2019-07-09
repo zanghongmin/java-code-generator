@@ -15,7 +15,7 @@ import ${packgage}.service.${classInfo.className}Service;
 /**
 * ${classInfo.classComment}
 *
-* Created by 开发3处 on '${.now?string('yyyy-MM-dd HH:mm:ss')}'.
+* Created by zang on '${.now?string('yyyy-MM-dd HH:mm:ss')}'.
 */
 @Api(value = "${classInfo.classComment}", description = "${classInfo.classComment}")
 @Controller

@@ -6,7 +6,7 @@ import java.util.Map;
 /**
 * ${classInfo.classComment}
 *
-* Created by 开发3处 on '${.now?string('yyyy-MM-dd HH:mm:ss')}'.
+* Created by zang on '${.now?string('yyyy-MM-dd HH:mm:ss')}'.
 */
 public interface ${classInfo.className}Service {
 

@@ -14,7 +14,7 @@ import java.util.Map;
 /**
 * ${classInfo.classComment}
 *
-* Created by 开发3处 on '${.now?string('yyyy-MM-dd HH:mm:ss')}'.
+* Created by zang on '${.now?string('yyyy-MM-dd HH:mm:ss')}'.
 */
 @Controller
 public class ${classInfo.className}Controller {

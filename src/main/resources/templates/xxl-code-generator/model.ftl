@@ -16,7 +16,7 @@ import java.util.Date;
 /**
 *  ${classInfo.classComment}
 *
-*  Created by 开发3处 on '${.now?string('yyyy-MM-dd HH:mm:ss')}'.
+*  Created by zang on '${.now?string('yyyy-MM-dd HH:mm:ss')}'.
 */
 public class ${classInfo.className} implements Serializable {
     private static final long serialVersionUID = 42L;
