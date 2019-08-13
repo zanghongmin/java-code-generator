@@ -12,7 +12,7 @@ import java.io.Serializable;
 <#if importDdate?? && importDdate>
 import java.util.Date;
 import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiModelProperty;
 </#if>
 
 /**
@@ -27,7 +27,7 @@ public class ${classInfo.className} implements Serializable {
 <#if classInfo.fieldList?exists && classInfo.fieldList?size gt 0>
 <#list classInfo.fieldList as fieldItem >
 
-    @ApiParam(name= "${fieldItem.fieldName}", value = "${fieldItem.fieldComment}", defaultValue="",required = false)
+    @ApiModelProperty(name= "${fieldItem.fieldName}", value = "${fieldItem.fieldComment}", example="",required = false)
     private ${fieldItem.fieldClass} ${fieldItem.fieldName};
 
 </#list>
