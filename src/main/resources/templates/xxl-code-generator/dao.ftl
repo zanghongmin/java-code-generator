@@ -45,4 +45,13 @@ public interface ${classInfo.className}Dao {
     */
     public int pageListCount(@Param("${classInfo.className?uncap_first}") ${classInfo.className} ${classInfo.className?uncap_first});
 
+    /**
+    * 批量新增
+    */
+    public int insertMany(@Param("list") List<${classInfo.className}> ${classInfo.className?uncap_first}s);
+
+    /**
+    * 批量更新
+    */
+    public int batchUpdate(@Param("list") List<${classInfo.className}> ${classInfo.className?uncap_first}s);
 }

@@ -101,4 +101,51 @@
         <include refid="condition" />
     </select>
 
+    <insert id="insertMany" parameterType="java.util.Map"  keyProperty="${classInfo.primaryKeycolumnName}"  useGeneratedKeys="true">
+        INSERT INTO ${classInfo.tableName}
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <#if classInfo.fieldList?exists && classInfo.fieldList?size gt 0>
+                <#list classInfo.fieldList as fieldItem >
+                    <#if fieldItem.columnName != "${classInfo.primaryKeycolumnName}" >
+                            `${fieldItem.columnName}` ,
+                    </#if>
+                </#list>
+            </#if>
+        </trim>
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            <trim prefix="(" suffix=")" suffixOverrides=",">
+                <#list classInfo.fieldList as fieldItem >
+                    <#if fieldItem.columnName != "${classInfo.primaryKeycolumnName}" >
+                              ${r"#{"}item.${fieldItem.fieldName}${r"}"} ,
+                    </#if>
+                </#list>
+            </trim>
+        </foreach>
+    </insert>
+
+    <update id="batchUpdate" parameterType="java.util.Map">
+        UPDATE ${classInfo.tableName}
+        <trim prefix="SET" suffixOverrides=",">
+           <#list classInfo.fieldList as fieldItem >
+                <#if fieldItem.columnName != "${classInfo.primaryKeycolumnName}">
+                        <trim prefix="${fieldItem.columnName} =case" suffix="end,">
+                            <foreach collection="list" item="cus">
+                                <if test="cus.${fieldItem.fieldName}!=null">
+                                    when ${classInfo.primaryKeycolumnName}=${r"#{"}cus.${classInfo.primaryKeycolumnName}${r"}"} then ${r"#{"}cus.${fieldItem.columnName}${r"}"}
+                                </if>
+                            </foreach>
+                        </trim>
+                </#if>
+           </#list>
+        </trim>
+        <where>
+            <foreach collection="list" separator="or" item="cus">
+                `${classInfo.primaryKeycolumnName}` =  ${r"#{"}cus.${classInfo.primaryKeyfieldName?uncap_first}${r"}"}
+            </foreach>
+        </where>
+
+    </update>
+
+
 </mapper>
