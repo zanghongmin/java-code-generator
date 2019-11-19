@@ -6,10 +6,10 @@ import org.mybatis.spring.annotation.MapperScan;
 
 @SpringBootApplication
 @MapperScan("${packgage}.dao")
-public class ${artifactId?cap_first}Application {
+public class MainApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(${artifactId?cap_first}Application.class, args);
+        SpringApplication.run(MainApplication.class, args);
     }
 
 }

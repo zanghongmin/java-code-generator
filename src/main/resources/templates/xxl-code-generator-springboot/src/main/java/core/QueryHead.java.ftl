@@ -16,9 +16,9 @@ public class QueryHead implements Serializable {
 	@ApiParam(name= "source", value = "来源系统", defaultValue = "FrontEnd",required = true)
 	@NotBlank(message = "source来源系统不能为空")
 	private String source;
-	@ApiParam(name= "timestamp", value = "时间戳", defaultValue = "123456789",required = true)
-    @NotBlank(message = "timestamp时间戳不能为空")
-	private String timestamp;
+	@ApiParam(name= "transeq", value = "请求流水号", defaultValue = "123456789",required = true)
+    @NotBlank(message = "transeq请求流水号不能为空")
+	private String transeq;
 	@ApiParam(name= "signature", value = "签名字符串", defaultValue = "",required = true)
 	private String signature;
 
@@ -30,12 +30,12 @@ public class QueryHead implements Serializable {
 		this.source = source;
 	}
 
-	public String getTimestamp() {
-		return timestamp;
+	public String getTranseq() {
+		return transeq;
 	}
 
-	public void setTimestamp(String timestamp) {
-		this.timestamp = timestamp;
+	public void setTranseq(String transeq) {
+		this.transeq = transeq;
 	}
 
 	public String getSignature() {

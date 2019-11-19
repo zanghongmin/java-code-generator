@@ -35,7 +35,7 @@ import java.util.Map;
 public class IndexController {
     private static final Logger logger = LoggerFactory.getLogger(IndexController.class);
 
-    public static String folder = System.getProperty("java.io.tmpdir")+ File.separator  ;
+    public static String folder = System.getProperty("java.io.tmpdir") + File.separator;
 
     @Resource
     private FreemarkerTool freemarkerTool;
@@ -197,8 +197,12 @@ public class IndexController {
             params.put("artifactId", artifactId);
             params.put("description", description);
             params.put("springbootversion", springbootversion);
-            params.put("packgage", groupId+"."+artifactId);
-            final  String  javapath =filepath+ File.separator + "src"+ File.separator + "main"+ File.separator + "java" +File.separator+ groupId.replaceAll("\\.","/" )+File.separator+artifactId;
+            String artifactIdtmp = artifactId;
+            if(artifactId.contains("-")){
+                artifactIdtmp = artifactId.split("-")[1];
+            }
+            params.put("packgage", groupId+"."+artifactIdtmp);
+            final  String  javapath =filepath+ File.separator + "src"+ File.separator + "main"+ File.separator + "java" +File.separator+ groupId.replaceAll("\\.","/" )+File.separator+artifactIdtmp;
             File javapathfile = new File(javapath);
             javapathfile.mkdirs();
             javapathfile = new File(javapath+ File.separator + "config");
@@ -246,8 +250,8 @@ public class IndexController {
             File LocalCacheUtilfile = new File(javapath + File.separator + "util"+File.separator + "LocalCacheUtil.java");
             FileUtil.writeFileContent(LocalCacheUtilfile, freemarkerTool.processString("xxl-code-generator-springboot/src/main/java/util/LocalCacheUtil.java.ftl", params).getBytes());
 
-            File Applicationfile = new File(javapath +File.separator + com.xxl.codegenerator.admin.core.util.StringUtils.upperCaseFirst(artifactId)+"Application.java");
-            FileUtil.writeFileContent(Applicationfile, freemarkerTool.processString("xxl-code-generator-springboot/src/main/java/Application.ftl", params).getBytes());
+            File MainApplicationfile = new File(javapath +File.separator + "MainApplication.java");
+            FileUtil.writeFileContent(MainApplicationfile, freemarkerTool.processString("xxl-code-generator-springboot/src/main/java/MainApplication.ftl", params).getBytes());
 
             File mybatisconfigfile = new File(resoutcespath+ File.separator+"mybatis"+ File.separator + "mybatis-config.xml");
             FileUtil.writeFileContent(mybatisconfigfile, freemarkerTool.processString("xxl-code-generator-springboot/src/main/resources/mybatis/mybatis-config.ftl", params).getBytes());

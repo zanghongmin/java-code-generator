@@ -16,14 +16,15 @@ import java.io.Serializable;
 /**
  * 统一返回对象
  */
-//@JsonInclude(value=JsonInclude.Include.NON_NULL)
+//@JsonInclude(value=JsonInclude.Include.NON_ABSENT)
 @ApiModel(value="统一返回对象")
 public class ReturnT<T> implements Serializable {
     private static final Logger logger = LoggerFactory.getLogger(ReturnT.class);
-	public static final long serialVersionUID = 42L;
-	public static final int FAIL_CODE = ReturnTEnum.HTTP_ERROR_500.getCode();
-	public static final ReturnT<String> SUCCESS = new ReturnT<String>(null);
-	public static final ReturnT<String> FAIL = new ReturnT<String>(ReturnTEnum.HTTP_ERROR_500,null);
+    public static final long serialVersionUID = 42L;
+    public static final int FAIL_CODE = ReturnTEnum.HTTP_ERROR_500.getCode();
+    public static final ReturnT<String> SUCCESS = new ReturnT<String>(null);
+    public static final ReturnT<String> FAIL = new ReturnT<String>(ReturnTEnum.HTTP_ERROR_500,null);
+
     private static ObjectMapper objectMapper = new ObjectMapper();
     static {
         objectMapper.getSerializerProvider().setNullValueSerializer(new JsonSerializer<Object>() {
@@ -35,20 +36,21 @@ public class ReturnT<T> implements Serializable {
     }
 
 
-	@ApiModelProperty(name= "code", value = "返回状态码 200为成功，其他为错误，具体看状态码表",required = true)
+	@ApiModelProperty(name= "code", value = "返回状态码 200为成功，其他为错误，具体看状态码表",example = "200",required = true)
 	private int code;
     @ApiModelProperty(name= "msg", value = "返回状态描述",required = true)
 	private String msg;
     @ApiModelProperty(name= "source", value = "来源系统，该值为请求头source字段",required = true)
     private String source;
-    @ApiModelProperty(name= "timestamp", value = "时间戳，该值为请求头timestamp字段",required = true)
-    private String timestamp;
+    @ApiModelProperty(name= "transeq", value = "请求流水号，该值为请求头transeq字段",required = true)
+    private String transeq;
     @ApiModelProperty(name= "data", value = "具体的返回内容",required = true)
 	private T data;
 
     public ReturnT(int code, String msg) {
         this.code = code;
         this.msg = msg;
+        this.data = null;
     }
 
 	public ReturnT(ReturnTEnum resultStatusCode, T data) {
@@ -68,16 +70,16 @@ public class ReturnT<T> implements Serializable {
      */
     public ReturnT setCommonHeader(QueryHead queryHead) {
         this.source = queryHead.getSource();
-        this.timestamp = queryHead.getTimestamp();
-        if(this.code== ReturnTEnum.OK.getCode()){
+        this.transeq = queryHead.getTranseq();
+        if(this.code==ReturnTEnum.OK.getCode()){
             try {
-                logger.info("返回成功结果,来源系统:{},时间戳:{},状态码:{},状态描述:{},返回内容:{}",this.source,this.timestamp,this.code,this.msg,objectMapper.writeValueAsString(this.data));
+                logger.info("返回成功结果,来源系统:{},请求流水号:{},状态码:{},状态描述:{},返回内容:{}",this.source,this.transeq,this.code,this.msg,objectMapper.writeValueAsString(this.data));
             } catch (JsonProcessingException e) {
                 logger.error("返回成功结果日志解析失败:{}",e.getMessage());
             }
         }else{
             try {
-                logger.info("返回失败结果,来源系统:{},时间戳:{},状态码:{},状态描述:{},返回内容:{}",this.source,this.timestamp,this.code,this.msg,objectMapper.writeValueAsString(this.data));
+                logger.info("返回失败结果,来源系统:{},请求流水号:{},状态码:{},状态描述:{},返回内容:{}",this.source,this.transeq,this.code,this.msg,objectMapper.writeValueAsString(this.data));
             } catch (JsonProcessingException e) {
                 logger.error("返回成功结果日志解析失败:{}",e.getMessage());
             }
@@ -87,10 +89,11 @@ public class ReturnT<T> implements Serializable {
     /**
      * 设置通用返回头
      */
-    public ReturnT setCommonHeader(String source, String timestamp) {
-        this.source = source;
-        this.timestamp = timestamp;
-        return this;
+    public ReturnT setCommonHeader(String source, String transeq) {
+        QueryHead queryHead = new QueryHead();
+        queryHead.setSource(source);
+        queryHead.setTranseq(transeq);
+        return setCommonHeader(queryHead);
     }
 
 
@@ -121,12 +124,12 @@ public class ReturnT<T> implements Serializable {
         this.source = source;
     }
 
-    public String getTimestamp() {
-        return timestamp;
+    public String getTranseq() {
+        return transeq;
     }
 
-    public void setTimestamp(String timestamp) {
-        this.timestamp = timestamp;
+    public void setTranseq(String transeq) {
+        this.transeq = transeq;
     }
 
 

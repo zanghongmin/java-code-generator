@@ -184,7 +184,7 @@ public class FileUtil {
         if (!srcFile.exists()) {
             throw new FileNotFoundException(srcPath + "不存在！");
         }
-
+        dstFile.delete();
         FileOutputStream out = null;
         ZipOutputStream zipOut = null;
         try {
@@ -218,11 +218,8 @@ public class FileUtil {
     private static void compressDirectory(File dir, ZipOutputStream zipOut, String baseDir) throws IOException{
         File[] files = dir.listFiles();
         if (files.length==0) {
-            String str1 = dir.getAbsolutePath();
-            String str = str1.substring(IndexController.folder.length());
-            zipOut.putNextEntry(new ZipEntry (str+File.separator));
+            zipOut.putNextEntry(new ZipEntry (baseDir+dir.getName()+File.separator));
         }
-
 
         for (int i = 0; i < files.length; i++) {
             compress(files[i], zipOut, baseDir + dir.getName() + "/");
