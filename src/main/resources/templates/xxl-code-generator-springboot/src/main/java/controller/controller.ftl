@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 import ${packgage}.core.ReturnT;
+import ${packgage}.core.PageList;
 import ${packgage}.model.${classInfo.className};
 import ${packgage}.service.${classInfo.className}Service;
 /**
@@ -67,13 +68,15 @@ public class ${classInfo.className}Controller {
 
             /**
             * 分页查询
+            * pagenum为第几页，1为第一页
+            * pagesize为页大小
             */
             @ApiOperation(value = "分页查询${classInfo.classComment}")
             @PostMapping("/pageList")
             @ResponseBody
-            public Map<String, Object> pageList(@RequestParam(required = false, defaultValue = "1") int offset,
+            public ReturnT<PageList<${classInfo.className}>> pageList(@RequestParam(required = false, defaultValue = "1") int pagenum,
             @RequestParam(required = false, defaultValue = "20") int pagesize) {
-            return ${classInfo.className?uncap_first}Service.pageList(offset, pagesize);
+            return ${classInfo.className?uncap_first}Service.pageList(pagenum, pagesize);
             }
 
             }

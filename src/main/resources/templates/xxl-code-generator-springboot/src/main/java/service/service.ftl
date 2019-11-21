@@ -3,6 +3,7 @@ package ${packgage}.service;
 </#if>
 import java.util.Map;
 import ${packgage}.core.ReturnT;
+import ${packgage}.core.PageList;
 import ${packgage}.model.${classInfo.className};
 
 /**
@@ -35,6 +36,6 @@ public interface ${classInfo.className}Service {
     /**
     * 分页查询
     */
-    public Map<String,Object> pageList(int offset, int pagesize);
+    public ReturnT<PageList<${classInfo.className}>> pageList(int pagenum, int pagesize);
 
 }

@@ -135,7 +135,7 @@ public class TableParseUtil {
                         fieldClass = "Float";
                     } else if (columnLine.startsWith("double")) {
                         fieldClass = "Double";
-                    } else if (columnLine.startsWith("datetime") || columnLine.startsWith("timestamp")) {
+                    } else if (columnLine.startsWith("datetime") || columnLine.startsWith("timestamp")|| columnLine.startsWith("date")) {
                         fieldClass = Date.class.getSimpleName();
                     } else if (columnLine.startsWith("varchar") || columnLine.startsWith("text") || columnLine.startsWith("char")) {
                         fieldClass = String.class.getSimpleName();

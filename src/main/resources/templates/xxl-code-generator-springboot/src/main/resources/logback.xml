@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
     <jmxConfigurator />
-    <property resource="application.properties"/>
+    <!--<property resource="application.properties"/>-->
     <property resource="application-${spring.profiles.active}.properties"/>
 
     <!--日志控制台输出设置-->
     <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-            <level>${mylogback.console.level}</level>
+            <level>${logback.axlife.console.level}</level>
         </filter>
         <encoder>
-            <pattern>${mylogback.pattern}</pattern>
+            <pattern>${logback.axlife.pattern}</pattern>
         </encoder>
     </appender>
 
     <!-- 按照每天生成日志文件 -->
     <appender name="rollingLogFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-            <level>${mylogback.file.level}</level>
+            <level>${logback.axlife.file.level}</level>
         </filter>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${mylogback.file.fileNamePattern}</fileNamePattern>
-            <MaxHistory>${mylogback.file.MaxHistory}</MaxHistory>
+            <fileNamePattern>${logback.axlife.file.fileNamePattern}</fileNamePattern>
+            <MaxHistory>${logback.axlife.file.MaxHistory}</MaxHistory>
         </rollingPolicy>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <pattern>${mylogback.pattern}</pattern>
+            <pattern>${logback.axlife.pattern}</pattern>
         </encoder>
         <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
-            <MaxFileSize>${mylogback.file.MaxFileSize}</MaxFileSize>
+            <MaxFileSize>${logback.axlife.file.MaxFileSize}</MaxFileSize>
         </triggeringPolicy>
     </appender>
 
@@ -42,7 +42,7 @@
 
 
     <!-- root -->
-    <root level="${mylogback.rootlevel}" >
+    <root level="${logback.axlife.rootlevel}" >
         <appender-ref ref="console" />
         <!--<appender-ref ref="AsyncrollingLogFile" />-->
         <appender-ref ref="rollingLogFile" />

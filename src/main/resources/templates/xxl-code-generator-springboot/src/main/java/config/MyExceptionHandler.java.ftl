@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import javax.annotation.Resource;
 
 @RestControllerAdvice
 @Component

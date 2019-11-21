@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Map;
 
 import ${packgage}.core.ReturnT;
+import ${packgage}.core.PageList;
+import ${packgage}.core.PageQuery;
 import ${packgage}.dao.${classInfo.className}Dao;
 import ${packgage}.model.${classInfo.className};
 import ${packgage}.service.${classInfo.className}Service;
@@ -70,17 +72,12 @@ public class ${classInfo.className}ServiceImpl implements ${classInfo.className}
 	* 分页查询
 	*/
 	@Override
-	public Map<String,Object> pageList(int offset, int pagesize) {
+	public ReturnT<PageList<${classInfo.className}>> pageList(int pagenum, int pagesize) {
 
-		List<${classInfo.className}> pageList = ${classInfo.className?uncap_first}Dao.pageList(null,offset, pagesize);
+        PageQuery pageQuery = PageQuery.getPageQuery(pagenum, pagesize);
+		List<${classInfo.className}> pageList = ${classInfo.className?uncap_first}Dao.pageList(null,pageQuery.getPageoffset(),pageQuery.getPagesize());
 		int totalCount = ${classInfo.className?uncap_first}Dao.pageListCount(null);
-
-		// result
-		Map<String, Object> result = new HashMap<String, Object>();
-        result.put("pageList", pageList);
-        result.put("totalCount", totalCount);
-
-		return result;
+		return new ReturnT(new PageList(totalCount, pagenum, pagesize, pageList));
 	}
 
 }
