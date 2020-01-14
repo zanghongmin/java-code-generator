@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import javax.annotation.Resource;
-
+import org.springframework.web.bind.annotation.ExceptionHandler;
 @RestControllerAdvice
 @Component
 public class MyExceptionHandler extends ResponseEntityExceptionHandler   {

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
     <jmxConfigurator />
-    <property resource="application.properties"/>
     <property resource="application-${spring.profiles.active}.properties"/>
 
     <!--日志控制台输出设置-->
