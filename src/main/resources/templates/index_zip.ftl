@@ -32,7 +32,8 @@
                         <div class="box box-default">
                             <div class="box-header with-border">
                                 <h4 class="pull-left">表结构信息</h4>
-                                <button type="button" class="btn btn-default btn-xs pull-right" id="codeGenerate_zip" >生成springboot2.0工程</button>
+                                <button type="button" class="btn btn-default btn-xs pull-right" style="margin-right: 10px" id="codeGenerate_zip" >生成springboot2.0工程</button>
+                                <a class="btn btn-default btn-xs pull-right" href="/static/codegenerator-demo.rar"  target="_blank" style="margin-right: 10px">下载demo工程</a>
                             </div>
                             <div class="box-body">
                                 <ul class="chart-legend clearfix">
@@ -76,7 +77,7 @@ CREATE TABLE `userinfo2` (
                                 <div class="col-xs-3">
                                     <h5 class="pull-left">项目描述 ： </h5>
                                     <div class="input-group">
-                                        <input type="text" class="form-control" id="description" autocomplete="on" placeholder="爱心意外险平台" value="爱心意外险平台" >
+                                        <input type="text" class="form-control" id="description" autocomplete="on" placeholder="意外险平台" value=" 意外险平台" >
                                     </div>
                                 </div>
                                 <div class="col-xs-3">
