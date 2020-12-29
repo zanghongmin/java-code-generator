@@ -33,8 +33,10 @@
                             <div class="box-header with-border">
                                 <h4 class="pull-left">表结构信息</h4>
 
-                                <button type="button" class="btn btn-default btn-xs pull-right" id="codeGenerate-swagger" >生成代码+swagger注解</button>
-                                <button type="button" class="btn btn-default btn-xs pull-right" style="margin-right: 10px" id="codeGenerate" >生成代码</button>
+
+                                <button type="button" class="btn btn-default btn-xs pull-right" style="margin-right: 10px" id="codeGenerate_swagger_zip" >下载swagger注解代码文件包</button>
+                                <button type="button" class="btn btn-default btn-xs pull-right" style="margin-right: 10px" id="codeGenerate-swagger" >生成swagger注解代码</button>
+                                <#--<button type="button" class="btn btn-default btn-xs pull-right" style="margin-right: 10px" id="codeGenerate" >生成代码</button>-->
 
                             </div>
                             <div class="box-body">
@@ -55,6 +57,14 @@ CREATE TABLE `userinfo` (
                             </div>
                         </div>
 
+                        <div class="row" style="margin-bottom: 8px">
+                            <div class="col-xs-12">
+                                <h5 class="pull-left">包名 ： </h5>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="ppname" autocomplete="on" placeholder="com.test"  value="com.test">
+                                </div>
+                            </div>
+                        </div>
 
                         <#-- 生成代码 -->
                         <div class="nav-tabs-custom">

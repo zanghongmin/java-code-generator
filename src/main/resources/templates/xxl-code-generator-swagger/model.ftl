@@ -1,5 +1,5 @@
-<#if packgage??>
-package ${packgage}.model;
+<#if ppname??>
+package ${ppname}.model;
 </#if>
 <#if classInfo.fieldList?exists && classInfo.fieldList?size gt 0>
     <#list classInfo.fieldList as fieldItem >
@@ -13,6 +13,7 @@ import java.io.Serializable;
 import java.util.Date;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 </#if>
 
 /**
@@ -21,6 +22,7 @@ import io.swagger.annotations.ApiModelProperty;
 *  Created by zang on '${.now?string('yyyy-MM-dd HH:mm:ss')}'.
 */
 @ApiModel(value="${classInfo.classComment}")
+@Data
 public class ${classInfo.className} implements Serializable {
     private static final long serialVersionUID = 42L;
 
@@ -33,16 +35,16 @@ public class ${classInfo.className} implements Serializable {
 </#list>
 </#if>
 
-<#if classInfo.fieldList?exists && classInfo.fieldList?size gt 0>
-<#list classInfo.fieldList as fieldItem>
-    public ${fieldItem.fieldClass} get${fieldItem.fieldName?cap_first}() {
-        return ${fieldItem.fieldName};
-    }
+<#--<#if classInfo.fieldList?exists && classInfo.fieldList?size gt 0>-->
+<#--<#list classInfo.fieldList as fieldItem>-->
+    <#--public ${fieldItem.fieldClass} get${fieldItem.fieldName?cap_first}() {-->
+        <#--return ${fieldItem.fieldName};-->
+    <#--}-->
 
-    public void set${fieldItem.fieldName?cap_first}(${fieldItem.fieldClass} ${fieldItem.fieldName}) {
-        this.${fieldItem.fieldName} = ${fieldItem.fieldName};
-    }
+    <#--public void set${fieldItem.fieldName?cap_first}(${fieldItem.fieldClass} ${fieldItem.fieldName}) {-->
+        <#--this.${fieldItem.fieldName} = ${fieldItem.fieldName};-->
+    <#--}-->
 
-</#list>
-</#if>
+<#--</#list>-->
+<#--</#if>-->
 }

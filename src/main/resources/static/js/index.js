@@ -1,5 +1,13 @@
 $(function () {
 
+
+
+    var localstorageppname = localStorage.getItem('ppname');
+    if(localstorageppname){
+        $("#ppname").val(localstorageppname);
+    }
+
+
     /**
      * 初始化 table sql
      */
@@ -107,14 +115,18 @@ $(function () {
      * 生成代码
      */
     $('#codeGenerate').click(function () {
-
+        var ppname = $("#ppname").val();
+        if(ppname){
+            localStorage.setItem('ppname',ppname);
+        }
         var tableSql = tableSqlIDE.getValue();
 
         $.ajax({
             type : 'POST',
             url : base_url + "/codeGenerate",
             data : {
-                "tableSql" : tableSql
+                "tableSql" : tableSql,
+                "ppname":ppname
             },
             dataType : "json",
             success : function(data){
@@ -160,13 +172,18 @@ $(function () {
      */
     $('#codeGenerate-swagger').click(function () {
 
+        var ppname = $("#ppname").val();
+        if(ppname){
+            localStorage.setItem('ppname',ppname);
+        }
         var tableSql = tableSqlIDE.getValue();
 
         $.ajax({
             type : 'POST',
             url : base_url + "/codeGenerate-swagger",
             data : {
-                "tableSql" : tableSql
+                "tableSql" : tableSql,
+                "ppname": ppname
             },
             dataType : "json",
             success : function(data){
@@ -201,6 +218,33 @@ $(function () {
                         icon: '2',
                         content: (data.msg||'代码生成失败')
                     });
+                }
+            }
+        });
+
+    });
+
+    $('#codeGenerate_swagger_zip').click(function () {
+        var ppname = $("#ppname").val();
+        if(ppname){
+            localStorage.setItem('ppname',ppname);
+        }
+        var tableSql = tableSqlIDE.getValue();
+
+        $.ajax({
+            type : 'POST',
+            url : base_url + "/codeGenerate_swagger_zip",
+            data : {
+                "tableSql" : tableSql,
+                "ppname" : ppname
+
+            },
+            dataType : "json",
+            success : function(data){
+                if (data.code == 200) {
+                    location.href = base_url +"/downloadzip?name=" +data.data;
+                } else {
+                    alert(data)
                 }
             }
         });

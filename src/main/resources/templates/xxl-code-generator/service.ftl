@@ -1,5 +1,5 @@
-<#if packgage??>
-package ${packgage}.service;
+<#if ppname??>
+package ${ppname}.service;
 </#if>
 import java.util.Map;
 

@@ -1,6 +1,7 @@
-<#if packgage??>
-package ${packgage}.dao;
+<#if ppname??>
+package ${ppname}.dao;
 </#if>
+
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 

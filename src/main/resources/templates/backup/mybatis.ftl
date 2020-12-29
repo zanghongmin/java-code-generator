@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="${ppname}.dao.${classInfo.className}Dao">
+<mapper namespace="Dao路径.${classInfo.className}Dao">
 
-    <resultMap id="${classInfo.className}" type="${ppname}.model.${classInfo.className}">
+    <resultMap id="${classInfo.className}" type="model路径.${classInfo.className}">
     <#if classInfo.fieldList?exists && classInfo.fieldList?size gt 0>
     <#list classInfo.fieldList as fieldItem >
         <result column="${fieldItem.columnName}" property="${fieldItem.fieldName}"/>
@@ -124,20 +124,51 @@
         </foreach>
     </insert>
 
-    <update id="batchUpdate" parameterType="java.util.List">
-        <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+    <#--<update id="batchUpdate" parameterType="java.util.Map">-->
+        <#--UPDATE ${classInfo.tableName}-->
+        <#--<trim prefix="SET" suffixOverrides=",">-->
+        <#--<#list classInfo.fieldList as fieldItem >-->
+        <#--<#if fieldItem.columnName != "${classInfo.primaryKeycolumnName}">-->
+            <#--<trim prefix="${fieldItem.columnName} =case" suffix="end,">-->
+                <#--<foreach collection="list" item="cus">-->
+                    <#--<if test="cus.${fieldItem.fieldName}!=null">-->
+                        <#--when ${classInfo.primaryKeycolumnName}=${r"#{"}cus.${classInfo.primaryKeycolumnName}${r"}"} then ${r"#{"}cus.${fieldItem.columnName}${r"}"}-->
+                    <#--</if>-->
+                <#--</foreach>-->
+            <#--</trim>-->
+        <#--</#if>-->
+        <#--</#list>-->
+        <#--</trim>-->
+        <#--<where>-->
+            <#--<foreach collection="list" separator="or" item="cus">-->
+                <#--`${classInfo.primaryKeycolumnName}` =  ${r"#{"}cus.${classInfo.primaryKeyfieldName?uncap_first}${r"}"}-->
+            <#--</foreach>-->
+        <#--</where>-->
+
+    <#--</update>-->
+
+    <update id="batchUpdate" parameterType="java.util.Map">
         UPDATE ${classInfo.tableName}
-        <set>
-            <#list classInfo.fieldList as fieldItem >
-                <#if fieldItem.columnName != "${classInfo.primaryKeycolumnName}">
-                <if test="item.${fieldItem.fieldName}!=null">
-                    ${fieldItem.columnName} = ${r"#{"}item.${fieldItem.fieldName}${r"}"},
-                </if>
-                </#if>
-            </#list>
-        </set>
-        where `${classInfo.primaryKeycolumnName}` = ${r"#{"}item.${classInfo.primaryKeyfieldName?uncap_first}${r"}"}
-        </foreach>
+        <trim prefix="SET" suffixOverrides=",">
+        <#list classInfo.fieldList as fieldItem >
+        <#if fieldItem.columnName != "${classInfo.primaryKeycolumnName}">
+            <trim prefix="${fieldItem.columnName} =case" suffix="end,">
+                <foreach collection="list" item="cus">
+                    <if test="cus.${fieldItem.fieldName}!=null">
+                        when ${classInfo.primaryKeycolumnName}=${r"#{"}cus.${classInfo.primaryKeycolumnName}${r"}"} then ${r"#{"}cus.${fieldItem.columnName}${r"}"}
+                    </if>
+                </foreach>
+            </trim>
+        </#if>
+        </#list>
+        </trim>
+        <where>
+            <foreach collection="list" separator="or" item="cus">
+                `${classInfo.primaryKeycolumnName}` =  ${r"#{"}cus.${classInfo.primaryKeyfieldName?uncap_first}${r"}"}
+            </foreach>
+        </where>
 
     </update>
+
+
 </mapper>

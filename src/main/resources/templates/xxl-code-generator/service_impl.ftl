@@ -1,5 +1,5 @@
-<#if packgage??>
-package ${packgage}.service.impl;
+<#if ppname??>
+package ${ppname}.service.impl;
 </#if>
 import org.springframework.stereotype.Service;
 

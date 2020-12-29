@@ -64,7 +64,7 @@ CREATE TABLE `userinfo2` (
                                 <div class="col-xs-3">
                                     <h5 class="pull-left">groupId ： </h5>
                                     <div class="input-group">
-                                        <input type="text" class="form-control" id="groupId" autocomplete="on" placeholder="com.aixin"  value="com.aixin">
+                                        <input type="text" class="form-control" id="groupId" autocomplete="on" placeholder="com.test"  value="com.test">
                                     </div>
                                 </div>
                                 <div class="col-xs-3">

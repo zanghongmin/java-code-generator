@@ -52,7 +52,7 @@ public class IndexController {
 
     @RequestMapping("/codeGenerate")
     @ResponseBody
-    public ReturnT<Map<String, String>> codeGenerate(String tableSql) {
+    public ReturnT<Map<String, String>> codeGenerate(String tableSql,String ppname) {
 
         try {
 
@@ -66,7 +66,7 @@ public class IndexController {
             // code genarete
             Map<String, Object> params = new HashMap<String, Object>();
             params.put("classInfo", classInfo);
-
+            params.put("ppname", ppname);
             // result
             Map<String, String> result = new HashMap<String, String>();
 
@@ -101,7 +101,7 @@ public class IndexController {
     }
     @RequestMapping("/codeGenerate-swagger")
     @ResponseBody
-    public ReturnT<Map<String, String>> codeGenerateswagger(String tableSql) {
+    public ReturnT<Map<String, String>> codeGenerateswagger(String tableSql,String ppname) {
 
         try {
 
@@ -115,7 +115,7 @@ public class IndexController {
             // code genarete
             Map<String, Object> params = new HashMap<String, Object>();
             params.put("classInfo", classInfo);
-
+            params.put("ppname", ppname);
             // result
             Map<String, String> result = new HashMap<String, String>();
 
@@ -154,6 +154,93 @@ public class IndexController {
         }
 
     }
+
+
+    //生产swagger类型的代码文件
+    @RequestMapping("/codeGenerate_swagger_zip")
+    @ResponseBody
+    public ReturnT<String> codeGenerate_swagger_zip(String tableSql,String ppname) {
+
+        try {
+            if (StringUtils.isBlank(tableSql)) {
+                return new ReturnT<String>(ReturnT.FAIL_CODE, "表结构信息不可为空");
+            }
+            List<ClassInfo>  classInfos = new ArrayList<>();
+            // parse table
+            for(String sql:tableSql.split("\\;")){
+                if(sql.trim().length()==0){
+                    continue;
+                }
+                ClassInfo classInfo = CodeGeneratorTool.processTableIntoClassInfo(sql);
+                classInfos.add(classInfo);
+            }
+            Long time = System.currentTimeMillis();
+            String filename =  time + "-springboot2.zip";
+            String filepath = folder + time;
+            File fileparent = new File(filepath);
+            logger.info("文件路径：" + filepath);
+            if(fileparent.exists()){
+                FileUtil.deleteRecursively(fileparent);
+            }
+            fileparent.mkdirs();
+
+            Map<String, Object> params = new HashMap<String, Object>();
+            params.put("ppname", ppname);
+            final  String  javapath =filepath+ File.separator ;
+            File javapathfile = new File(javapath);
+            javapathfile.mkdirs();
+
+            for(ClassInfo  classInfo:classInfos){
+                params.put("classInfo", classInfo);
+
+                File controllerfile = new File(javapath+File.separator+"controller"+File.separator+classInfo.getClassName()+"Controller.java");
+                if(!controllerfile.getParentFile().exists()){
+                    controllerfile.getParentFile().mkdirs();
+                }
+                FileUtil.writeFileContent(controllerfile, freemarkerTool.processString("xxl-code-generator-swagger/controller.ftl", params).getBytes());
+
+                File servicefile = new File(javapath+File.separator+"service"+File.separator+classInfo.getClassName()+"Service.java");
+                if(!servicefile.getParentFile().exists()){
+                    servicefile.getParentFile().mkdirs();
+                }
+                FileUtil.writeFileContent(servicefile, freemarkerTool.processString("xxl-code-generator/service.ftl", params).getBytes());
+
+                File service_implfile = new File(javapath+File.separator+"service"+File.separator+"impl"+File.separator+classInfo.getClassName()+"ServiceImpl.java");
+                if(!service_implfile.getParentFile().exists()){
+                    service_implfile.getParentFile().mkdirs();
+                }
+                FileUtil.writeFileContent(service_implfile, freemarkerTool.processString("xxl-code-generator/service_impl.ftl", params).getBytes());
+
+                File daofile = new File(javapath+File.separator+"dao"+File.separator+classInfo.getClassName()+"Dao.java");
+                if(!daofile.getParentFile().exists()){
+                    daofile.getParentFile().mkdirs();
+                }
+                FileUtil.writeFileContent(daofile, freemarkerTool.processString("xxl-code-generator/dao.ftl", params).getBytes());
+
+                File modelfile = new File(javapath+File.separator+"model"+File.separator+classInfo.getClassName()+".java");
+                if(!modelfile.getParentFile().exists()){
+                    modelfile.getParentFile().mkdirs();
+                }
+                FileUtil.writeFileContent(modelfile, freemarkerTool.processString("xxl-code-generator-swagger/model.ftl", params).getBytes());
+
+                File mybatisfile = new File(javapath+File.separator+"mybatis"+File.separator+classInfo.getClassName()+".xml");
+                if(!mybatisfile.getParentFile().exists()){
+                    mybatisfile.getParentFile().mkdirs();
+                }
+                FileUtil.writeFileContent(mybatisfile, freemarkerTool.processString("xxl-code-generator/mybatis.ftl", params).getBytes());
+
+            }
+            FileUtil.compress(filepath,folder+filename);
+            return new ReturnT<String>(filename);
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return new ReturnT<String>(ReturnT.FAIL_CODE, "表结构解析失败");
+        }
+
+    }
+
+
+
 
     @RequestMapping("/codeGenerate_zip")
     @ResponseBody
