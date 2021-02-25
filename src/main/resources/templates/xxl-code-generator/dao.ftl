@@ -4,7 +4,7 @@ package ${ppname}.dao;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
-
+import ${ppname}.model.${classInfo.className};
 import java.util.List;
 
 /**

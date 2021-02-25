@@ -1,5 +1,8 @@
 <#if ppname??>
 package ${ppname}.model;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 </#if>
 <#if classInfo.fieldList?exists && classInfo.fieldList?size gt 0>
     <#list classInfo.fieldList as fieldItem >
@@ -11,9 +14,7 @@ package ${ppname}.model;
 import java.io.Serializable;
 <#if importDdate?? && importDdate>
 import java.util.Date;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
+
 </#if>
 
 /**
