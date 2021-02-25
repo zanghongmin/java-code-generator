@@ -3,8 +3,6 @@ package com.xxl.codegenerator.core.test;
 
 import com.xxl.codegenerator.admin.core.CodeGeneratorTool;
 import com.xxl.codegenerator.admin.core.model.ClassInfo;
-import org.junit.Test;
-
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -15,7 +13,6 @@ import java.io.InputStreamReader;
  */
 public class CodeGeneratorToolTest {
 
-    @Test
     public void codeGeneratorToolTest() throws IOException  {
 
         // table sql
