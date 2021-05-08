@@ -105,9 +105,10 @@ public class TableParseUtil {
 
                     // field Name
                     String fieldName = StringUtils.lowerCaseFirst(StringUtils.underlineToCamelCase(columnName));
-                    if (fieldName.contains("_")) {
-                        fieldName = fieldName.replaceAll("_", "");
-                    }
+//临时的修改下  不改字符写法 ，按原来字符的显示
+//                    if (fieldName.contains("_")) {
+//                        fieldName = fieldName.replaceAll("_", "");
+//                    }
 
                     // field class
                     columnLine = columnLine.substring(columnLine.indexOf("`")+1).trim();	// int(11) NOT NULL AUTO_INCREMENT COMMENT '用户ID',
