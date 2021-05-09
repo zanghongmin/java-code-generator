@@ -32,7 +32,8 @@ $(function () {
 
     var controller_ide;
     var service_ide;
-    var service_impl_ide;
+    var vo_ide;
+    var dto_ide;
     var dao_ide;
     var mybatis_ide;
     var model_ide;
@@ -62,8 +63,8 @@ $(function () {
         });
         service_ide.setSize('auto','auto');
 
-        // service_impl_ide
-        service_impl_ide = CodeMirror.fromTextArea(document.getElementById("service_impl_ide"), {
+        // vo_ide
+        vo_ide = CodeMirror.fromTextArea(document.getElementById("vo_ide"), {
             lineNumbers: true,
             matchBrackets: true,
             mode: "text/x-java",
@@ -72,7 +73,20 @@ $(function () {
             foldGutter: true,
             gutters:["CodeMirror-linenumbers", "CodeMirror-foldgutter"]
         });
-        service_impl_ide.setSize('auto','auto');
+        vo_ide.setSize('auto','auto');
+
+        // dto_ide
+        dto_ide = CodeMirror.fromTextArea(document.getElementById("dto_ide"), {
+            lineNumbers: true,
+            matchBrackets: true,
+            mode: "text/x-java",
+            lineWrapping:true,
+            readOnly:true,
+            foldGutter: true,
+            gutters:["CodeMirror-linenumbers", "CodeMirror-foldgutter"]
+        });
+        dto_ide.setSize('auto','auto');
+
 
         // dao_ide
         dao_ide = CodeMirror.fromTextArea(document.getElementById("dao_ide"), {
@@ -142,8 +156,11 @@ $(function () {
                             service_ide.setValue(data.data.service_code);
                             service_ide.setSize('auto','auto');
 
-                            service_impl_ide.setValue(data.data.service_impl_code);
-                            service_impl_ide.setSize('auto','auto');
+                            vo_ide.setValue(data.data.vo_code);
+                            vo_ide.setSize('auto','auto');
+
+                            dto_ide.setValue(data.data.dto_code);
+                            dto_ide.setSize('auto','auto');
 
                             dao_ide.setValue(data.data.dao_code);
                             dao_ide.setSize('auto','auto');
@@ -199,8 +216,11 @@ $(function () {
                             service_ide.setValue(data.data.service_code);
                             service_ide.setSize('auto','auto');
 
-                            service_impl_ide.setValue(data.data.service_impl_code);
-                            service_impl_ide.setSize('auto','auto');
+                            vo_ide.setValue(data.data.vo_code);
+                            vo_ide.setSize('auto','auto');
+
+                            dto_ide.setValue(data.data.dto_code);
+                            dto_ide.setSize('auto','auto');
 
                             dao_ide.setValue(data.data.dao_code);
                             dao_ide.setSize('auto','auto');

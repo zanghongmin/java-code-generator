@@ -171,6 +171,7 @@ public class TableParseUtil {
 
         ClassInfo codeJavaInfo = new ClassInfo();
         codeJavaInfo.setTableName(tableName);
+        codeJavaInfo.setOldclassName(className);
         codeJavaInfo.setClassName(className+"DO");
         codeJavaInfo.setClassComment(classComment);
         codeJavaInfo.setFieldList(fieldList);

@@ -72,8 +72,8 @@ public class IndexController {
 
 
             result.put("controller_code", freemarkerTool.processString("xxl-code-generator/controller.ftl", params));
-            result.put("service_code", freemarkerTool.processString("xxl-code-generator/service.ftl", params));
-            result.put("service_impl_code", freemarkerTool.processString("xxl-code-generator/service_impl.ftl", params));
+            result.put("service_code", freemarkerTool.processString("xxl-code-generator/service_new.ftl", params));
+            result.put("vo_code", freemarkerTool.processString("xxl-code-generator/vo.ftl", params));
 
             result.put("dao_code", freemarkerTool.processString("xxl-code-generator/dao.ftl", params));
             result.put("mybatis_code", freemarkerTool.processString("xxl-code-generator/mybatis.ftl", params));
@@ -122,16 +122,16 @@ public class IndexController {
 
 //            result.put("controller_code", freemarkerTool.processString("xxl-code-generator-springboot/controller.ftl", params));
 //            result.put("service_code", freemarkerTool.processString("xxl-code-generator-springboot/service.ftl", params));
-//            result.put("service_impl_code", freemarkerTool.processString("xxl-code-generator-springboot/service_impl.ftl", params));
+//            result.put("vo_code", freemarkerTool.processString("xxl-code-generator-springboot/vo.ftl", params));
 //
 //            result.put("dao_code", freemarkerTool.processString("xxl-code-generator-springboot/dao.ftl", params));
 //            result.put("mybatis_code", freemarkerTool.processString("xxl-code-generator-springboot/mybatis.ftl", params));
 //            result.put("model_code", freemarkerTool.processString("xxl-code-generator-springboot/model.ftl", params));
 
             result.put("controller_code", freemarkerTool.processString("xxl-code-generator-swagger/controller.ftl", params));
-            result.put("service_code", freemarkerTool.processString("xxl-code-generator/service.ftl", params));
-            result.put("service_impl_code", freemarkerTool.processString("xxl-code-generator/service_impl.ftl", params));
-
+            result.put("service_code", freemarkerTool.processString("xxl-code-generator/service_new.ftl", params));
+            result.put("vo_code", freemarkerTool.processString("xxl-code-generator/vo.ftl", params));
+            result.put("dto_code", freemarkerTool.processString("xxl-code-generator/dto.ftl", params));
             result.put("dao_code", freemarkerTool.processString("xxl-code-generator/dao.ftl", params));
             result.put("mybatis_code", freemarkerTool.processString("xxl-code-generator/mybatis.ftl", params));
             result.put("model_code", freemarkerTool.processString("xxl-code-generator-swagger/model.ftl", params));
@@ -199,17 +199,24 @@ public class IndexController {
                 }
                 FileUtil.writeFileContent(controllerfile, freemarkerTool.processString("xxl-code-generator-swagger/controller.ftl", params).getBytes());
 
-                File servicefile = new File(javapath+File.separator+"service"+File.separator+classInfo.getClassName()+"Service.java");
+                File servicefile = new File(javapath+File.separator+"service"+File.separator+"DBService"+File.separator+classInfo.getClassName()+"Service.java");
                 if(!servicefile.getParentFile().exists()){
                     servicefile.getParentFile().mkdirs();
                 }
-                FileUtil.writeFileContent(servicefile, freemarkerTool.processString("xxl-code-generator/service.ftl", params).getBytes());
+                FileUtil.writeFileContent(servicefile, freemarkerTool.processString("xxl-code-generator/service_new.ftl", params).getBytes());
 
-                File service_implfile = new File(javapath+File.separator+"service"+File.separator+"impl"+File.separator+classInfo.getClassName()+"ServiceImpl.java");
-                if(!service_implfile.getParentFile().exists()){
-                    service_implfile.getParentFile().mkdirs();
+                File vofile = new File(javapath+File.separator+"dto"+File.separator+"DBVo"+File.separator+classInfo.getOldclassName()+"Vo.java");
+                if(!vofile.getParentFile().exists()){
+                    vofile.getParentFile().mkdirs();
                 }
-                FileUtil.writeFileContent(service_implfile, freemarkerTool.processString("xxl-code-generator/service_impl.ftl", params).getBytes());
+                FileUtil.writeFileContent(vofile, freemarkerTool.processString("xxl-code-generator/vo.ftl", params).getBytes());
+
+                File dtofile = new File(javapath+File.separator+"dto"+File.separator+"DBDto"+File.separator+classInfo.getOldclassName()+"Dto.java");
+                if(!dtofile.getParentFile().exists()){
+                    dtofile.getParentFile().mkdirs();
+                }
+                FileUtil.writeFileContent(dtofile, freemarkerTool.processString("xxl-code-generator/dto.ftl", params).getBytes());
+
 
                 File daofile = new File(javapath+File.separator+"dao"+File.separator+classInfo.getClassName()+"Dao.java");
                 if(!daofile.getParentFile().exists()){
@@ -369,17 +376,23 @@ public class IndexController {
                 }
                 FileUtil.writeFileContent(controllerfile, freemarkerTool.processString("xxl-code-generator-springboot/src/main/java/controller/controller.ftl", params).getBytes());
 
-                File servicefile = new File(javapath+File.separator+"service"+File.separator+classInfo.getClassName()+"Service.java");
+                File servicefile = new File(javapath+File.separator+"service"+File.separator+"DBService"+File.separator+classInfo.getClassName()+"Service.java");
                 if(!servicefile.getParentFile().exists()){
                     servicefile.getParentFile().mkdirs();
                 }
-                FileUtil.writeFileContent(servicefile, freemarkerTool.processString("xxl-code-generator-springboot/src/main/java/service/service.ftl", params).getBytes());
+                FileUtil.writeFileContent(servicefile, freemarkerTool.processString("xxl-code-generator-springboot/src/main/java/service/service_new.ftl", params).getBytes());
 
-                File service_implfile = new File(javapath+File.separator+"service"+File.separator+"impl"+File.separator+classInfo.getClassName()+"ServiceImpl.java");
-                if(!service_implfile.getParentFile().exists()){
-                    service_implfile.getParentFile().mkdirs();
+                File vofile = new File(javapath+File.separator+"dto"+File.separator+"DBVo"+File.separator+classInfo.getOldclassName()+"Vo.java");
+                if(!vofile.getParentFile().exists()){
+                    vofile.getParentFile().mkdirs();
                 }
-                FileUtil.writeFileContent(service_implfile, freemarkerTool.processString("xxl-code-generator-springboot/src/main/java/service/impl/service_impl.ftl", params).getBytes());
+                FileUtil.writeFileContent(vofile, freemarkerTool.processString("xxl-code-generator-springboot/src/main/java/dto/vo.ftl", params).getBytes());
+
+                File dtofile = new File(javapath+File.separator+"dto"+File.separator+"DBDto"+File.separator+classInfo.getOldclassName()+"Dto.java");
+                if(!dtofile.getParentFile().exists()){
+                    dtofile.getParentFile().mkdirs();
+                }
+                FileUtil.writeFileContent(dtofile, freemarkerTool.processString("xxl-code-generator-springboot/src/main/java/dto/dto.ftl", params).getBytes());
 
                 File daofile = new File(javapath+File.separator+"dao"+File.separator+classInfo.getClassName()+"Dao.java");
                 if(!daofile.getParentFile().exists()){

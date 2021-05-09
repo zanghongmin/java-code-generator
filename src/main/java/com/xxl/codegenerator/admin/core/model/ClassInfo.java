@@ -10,6 +10,7 @@ import java.util.List;
 public class ClassInfo {
 
     private String tableName;
+	private String oldclassName;
     private String className;
 	private String classComment;
 	private String primaryKeycolumnName;
@@ -25,6 +26,14 @@ public class ClassInfo {
 
 	public void setTableName(String tableName) {
 		this.tableName = tableName;
+	}
+
+	public String getOldclassName() {
+		return oldclassName;
+	}
+
+	public void setOldclassName(String oldclassName) {
+		this.oldclassName = oldclassName;
 	}
 
 	public String getClassName() {
