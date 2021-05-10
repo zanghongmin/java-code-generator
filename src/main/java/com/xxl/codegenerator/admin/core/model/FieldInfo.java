@@ -11,6 +11,15 @@ public class FieldInfo {
     private String fieldName;
     private String fieldClass;
     private String fieldComment;
+    private Boolean isNull;//是否能为null,true的话 该字段可为null
+
+    public Boolean getIsNull() {
+        return isNull;
+    }
+
+    public void setIsNull(Boolean isNull) {
+        this.isNull = isNull;
+    }
 
     public String getColumnName() {
         return columnName;

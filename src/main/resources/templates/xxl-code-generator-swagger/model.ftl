@@ -12,7 +12,6 @@ import lombok.Data;
         </#if>
     </#list>
 </#if>
-import java.io.Serializable;
 <#if importDdate?? && importDdate>
 import java.util.Date;
 
@@ -23,10 +22,9 @@ import java.util.Date;
 *
 *  Created by zang on '${.now?string('yyyy-MM-dd HH:mm:ss')}'.
 */
-@ApiModel(value="${classInfo.classComment}")
+@ApiModel(value="${classInfo.className}",description = "${classInfo.classComment}")
 @Data
-public class ${classInfo.className} implements Serializable {
-    private static final long serialVersionUID = 42L;
+public class ${classInfo.className}{
 
 <#if classInfo.fieldList?exists && classInfo.fieldList?size gt 0>
 <#list classInfo.fieldList as fieldItem >

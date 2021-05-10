@@ -3,6 +3,7 @@ package ${ppname}.dto.DBDto;
 import ${ppname}.core.QueryHead;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import javax.validation.constraints.NotEmpty;
 import lombok.Data;
 </#if>
 <#if classInfo.fieldList?exists && classInfo.fieldList?size gt 0>
@@ -19,14 +20,18 @@ import java.util.Date;
 *  ${classInfo.classComment}
 *  Created by zang on '${.now?string('yyyy-MM-dd HH:mm:ss')}'.
 */
-@ApiModel(value="${classInfo.className}Dto",description = "${classInfo.classComment}请求类")
+@ApiModel(value="${classInfo.className}CreateDto",description = "${classInfo.classComment}新建请求类")
 @Data
-public class ${classInfo.oldclassName}Dto extends QueryHead {
+public class ${classInfo.oldclassName}CreateDto extends QueryHead {
 <#if classInfo.fieldList?exists && classInfo.fieldList?size gt 0>
     <#list classInfo.fieldList as fieldItem >
-        <#if fieldItem.columnName != "create_time" && fieldItem.columnName != "update_time">
-    @ApiModelProperty(name= "${fieldItem.fieldName}", value = "${fieldItem.fieldComment}", example="",required = false)
-    private ${fieldItem.fieldClass} ${fieldItem.fieldName};
+        <#if fieldItem.columnName != "create_time" && fieldItem.columnName != "update_time" && fieldItem.columnName != "id">
+
+        @ApiModelProperty(name= "${fieldItem.fieldName}", value = "${fieldItem.fieldComment}", example="",required = false)
+            <#if !fieldItem.isNull>
+        @NotEmpty(message = "${fieldItem.fieldComment}不能为空")
+            </#if>
+        private ${fieldItem.fieldClass} ${fieldItem.fieldName};
         </#if>
     </#list>
 </#if>

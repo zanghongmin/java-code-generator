@@ -211,11 +211,23 @@ public class IndexController {
                 }
                 FileUtil.writeFileContent(vofile, freemarkerTool.processString("xxl-code-generator/vo.ftl", params).getBytes());
 
-                File dtofile = new File(javapath+File.separator+"dto"+File.separator+"DBDto"+File.separator+classInfo.getOldclassName()+"Dto.java");
-                if(!dtofile.getParentFile().exists()){
-                    dtofile.getParentFile().mkdirs();
+//                File dtofile = new File(javapath+File.separator+"dto"+File.separator+"DBDto"+File.separator+classInfo.getOldclassName()+"Dto.java");
+//                if(!dtofile.getParentFile().exists()){
+//                    dtofile.getParentFile().mkdirs();
+//                }
+//                FileUtil.writeFileContent(dtofile, freemarkerTool.processString("xxl-code-generator/dto.ftl", params).getBytes());
+
+                File dtoCreatefile = new File(javapath+File.separator+"dto"+File.separator+"DBDto"+File.separator+classInfo.getOldclassName()+"CreateDto.java");
+                if(!dtoCreatefile.getParentFile().exists()){
+                    dtoCreatefile.getParentFile().mkdirs();
                 }
-                FileUtil.writeFileContent(dtofile, freemarkerTool.processString("xxl-code-generator/dto.ftl", params).getBytes());
+                FileUtil.writeFileContent(dtoCreatefile, freemarkerTool.processString("xxl-code-generator/dtoCreate.ftl", params).getBytes());
+
+                File dtoUpdatefile = new File(javapath+File.separator+"dto"+File.separator+"DBDto"+File.separator+classInfo.getOldclassName()+"UpdateDto.java");
+                if(!dtoUpdatefile.getParentFile().exists()){
+                    dtoUpdatefile.getParentFile().mkdirs();
+                }
+                FileUtil.writeFileContent(dtoUpdatefile, freemarkerTool.processString("xxl-code-generator/dtoUpdate.ftl", params).getBytes());
 
 
                 File daofile = new File(javapath+File.separator+"dao"+File.separator+classInfo.getClassName()+"Dao.java");
@@ -223,6 +235,7 @@ public class IndexController {
                     daofile.getParentFile().mkdirs();
                 }
                 FileUtil.writeFileContent(daofile, freemarkerTool.processString("xxl-code-generator/dao.ftl", params).getBytes());
+
 
                 File modelfile = new File(javapath+File.separator+"model"+File.separator+classInfo.getClassName()+".java");
                 if(!modelfile.getParentFile().exists()){

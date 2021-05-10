@@ -61,6 +61,14 @@ public class TableParseUtil {
             if (classCommentTmp!=null && classCommentTmp.trim().length()>0) {
                 classComment = classCommentTmp;
             }
+        }else if(tableSql.contains("COMMENT =")) {
+            String classCommentTmp = tableSql.substring(tableSql.lastIndexOf("COMMENT =")+9).trim();
+            if (classCommentTmp.contains("'") || classCommentTmp.indexOf("'")!=classCommentTmp.lastIndexOf("'")) {
+                classCommentTmp = classCommentTmp.substring(classCommentTmp.indexOf("'")+1, classCommentTmp.lastIndexOf("'"));
+            }
+            if (classCommentTmp!=null && classCommentTmp.trim().length()>0) {
+                classComment = classCommentTmp;
+            }
         }
 
         // field List
@@ -153,12 +161,16 @@ public class TableParseUtil {
                         fieldComment = commentTmp;
                     }
 
+                    Boolean isNull = true;
+                    if (columnLine.toUpperCase().contains("NOT NULL")) {
+                        isNull = false;
+                    }
                     FieldInfo fieldInfo = new FieldInfo();
                     fieldInfo.setColumnName(columnName);
                     fieldInfo.setFieldName(fieldName);
                     fieldInfo.setFieldClass(fieldClass);
                     fieldInfo.setFieldComment(fieldComment);
-
+                    fieldInfo.setIsNull(isNull);
                     fieldList.add(fieldInfo);
                 }
 
