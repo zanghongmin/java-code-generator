@@ -1,8 +1,7 @@
 <#if ppname??>
-package ${ppname}.model;
+package ${ppname}.dto.DBVo;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 </#if>
 <#if classInfo.fieldList?exists && classInfo.fieldList?size gt 0>
@@ -15,42 +14,20 @@ import lombok.Data;
 import java.io.Serializable;
 <#if importDdate?? && importDdate>
 import java.util.Date;
-
 </#if>
-
 /**
 *  ${classInfo.classComment}
-*
 *  Created by zang on '${.now?string('yyyy-MM-dd HH:mm:ss')}'.
 */
 @ApiModel(value="${classInfo.classComment}")
 @Data
-public class ${classInfo.className} implements Serializable {
-    private static final long serialVersionUID = 42L;
-
+public class ${classInfo.oldclassName}Vo {
 <#if classInfo.fieldList?exists && classInfo.fieldList?size gt 0>
-<#list classInfo.fieldList as fieldItem >
-
-
-    <#if fieldItem.columnName == "create_time" || fieldItem.columnName == "update_time">
-    @JsonIgnore
-    </#if>
+    <#list classInfo.fieldList as fieldItem >
+        <#if fieldItem.columnName != "create_time" && fieldItem.columnName != "update_time">
     @ApiModelProperty(name= "${fieldItem.fieldName}", value = "${fieldItem.fieldComment}", example="",required = false)
     private ${fieldItem.fieldClass} ${fieldItem.fieldName};
-
-</#list>
+        </#if>
+    </#list>
 </#if>
-
-<#--<#if classInfo.fieldList?exists && classInfo.fieldList?size gt 0>-->
-<#--<#list classInfo.fieldList as fieldItem>-->
-    <#--public ${fieldItem.fieldClass} get${fieldItem.fieldName?cap_first}() {-->
-        <#--return ${fieldItem.fieldName};-->
-    <#--}-->
-
-    <#--public void set${fieldItem.fieldName?cap_first}(${fieldItem.fieldClass} ${fieldItem.fieldName}) {-->
-        <#--this.${fieldItem.fieldName} = ${fieldItem.fieldName};-->
-    <#--}-->
-
-<#--</#list>-->
-<#--</#if>-->
 }
