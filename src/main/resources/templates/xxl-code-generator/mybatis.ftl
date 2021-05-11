@@ -100,7 +100,7 @@
         <include refid="Base_Column_List"/>
         FROM ${classInfo.tableName}
         <include refid="condition"/>
-        order by `${r"#{sortField}"}` ${r"#{sortType}"}
+        order by `${r"${sortField}"}` ${r"${sortType}"}
         LIMIT ${r"#{offset}"}, ${r"#{pagesize}"}
     </select>
 
