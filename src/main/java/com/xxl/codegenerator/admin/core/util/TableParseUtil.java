@@ -162,15 +162,20 @@ public class TableParseUtil {
                     }
 
                     Boolean isNull = true;
-                    if (columnLine.toUpperCase().contains("NOT NULL")) {
+                    Boolean isEmpty = true;
+                    if (columnLine.toUpperCase().contains("NOT NULL") && fieldClass.equals("String")) {
+                        isEmpty = false;
+                    }else if(columnLine.toUpperCase().contains("NOT NULL") && !fieldClass.equals("String")){
                         isNull = false;
                     }
+
                     FieldInfo fieldInfo = new FieldInfo();
                     fieldInfo.setColumnName(columnName);
                     fieldInfo.setFieldName(fieldName);
                     fieldInfo.setFieldClass(fieldClass);
                     fieldInfo.setFieldComment(fieldComment);
-                    fieldInfo.setIsNull(isNull);
+                    fieldInfo.setColumnNull(isNull);
+                    fieldInfo.setColumnEmpty(isEmpty);
                     fieldList.add(fieldInfo);
                 }
 

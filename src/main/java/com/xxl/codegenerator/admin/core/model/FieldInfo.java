@@ -11,15 +11,8 @@ public class FieldInfo {
     private String fieldName;
     private String fieldClass;
     private String fieldComment;
-    private Boolean isNull;//是否能为null,true的话 该字段可为null
-
-    public Boolean getIsNull() {
-        return isNull;
-    }
-
-    public void setIsNull(Boolean isNull) {
-        this.isNull = isNull;
-    }
+    private Boolean columnEmpty;//字符串类型 是否能为null,true的话 该字段可为null
+    private Boolean columnNull;//其他类型 是否能为null,true的话 该字段可为null
 
     public String getColumnName() {
         return columnName;
@@ -53,4 +46,19 @@ public class FieldInfo {
         this.fieldComment = fieldComment;
     }
 
+    public Boolean getColumnEmpty() {
+        return columnEmpty;
+    }
+
+    public void setColumnEmpty(Boolean columnEmpty) {
+        this.columnEmpty = columnEmpty;
+    }
+
+    public Boolean getColumnNull() {
+        return columnNull;
+    }
+
+    public void setColumnNull(Boolean columnNull) {
+        this.columnNull = columnNull;
+    }
 }
