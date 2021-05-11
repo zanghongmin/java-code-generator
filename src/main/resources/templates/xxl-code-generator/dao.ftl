@@ -42,6 +42,13 @@ public interface ${classInfo.className}Dao {
                                                  @Param("pagesize") int pagesize);
 
     /**
+    * 分页查询+字段排序
+    */
+	public List<${classInfo.className}> pageListBySort(@Param("${classInfo.className?uncap_first}") ${classInfo.className} ${classInfo.className?uncap_first},@Param("offset") int offset,
+                                                 @Param("pagesize") int pagesize,@Param("sortField") String sortField ,@Param("sortType") String sortType);
+
+
+    /**
     * 分页查询Count
     */
     public int pageListCount(@Param("${classInfo.className?uncap_first}") ${classInfo.className} ${classInfo.className?uncap_first});
