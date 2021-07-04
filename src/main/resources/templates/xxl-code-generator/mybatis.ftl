@@ -140,7 +140,7 @@
             <#list classInfo.fieldList as fieldItem >
                 <#if fieldItem.columnName != "${classInfo.primaryKeycolumnName}">
                 <if test="item.${fieldItem.fieldName}!=null">
-                    ${fieldItem.columnName} = ${r"#{"}item.${fieldItem.fieldName}${r"}"},
+                    `${fieldItem.columnName}` = ${r"#{"}item.${fieldItem.fieldName}${r"}"},
                 </if>
                 </#if>
             </#list>
